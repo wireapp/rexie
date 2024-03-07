@@ -68,4 +68,15 @@ impl Index {
 
         Ok(())
     }
+
+    #[allow(dead_code)]
+    pub(crate) fn delete(self, object_store: &IdbObjectStore) -> Result<()> {
+        if !object_store.index_names().contains(&self.name) {
+            return Ok(());
+        }
+
+        object_store
+            .delete_index(&self.name)
+            .map_err(Error::IndexDeletionFailed)
+    }
 }

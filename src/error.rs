@@ -29,6 +29,10 @@ pub enum Error {
     #[error("index creation failed: {}", js_error_display(.0))]
     IndexCreationFailed(JsValue),
 
+    /// Index deletion failed
+    #[error("index deletion failed: {}", js_error_display(.0))]
+    IndexDeletionFailed(JsValue),
+
     /// Index open failed
     #[error("index open failed: {}", js_error_display(.0))]
     IndexOpenFailed(JsValue),
@@ -100,6 +104,7 @@ impl From<Error> for JsValue {
             Error::AsyncChannelError => "AsyncChannelError".into(),
             Error::EventTargetNotFound => "EventTargetNotFound".into(),
             Error::IndexCreationFailed(js_value) => js_value,
+            Error::IndexDeletionFailed(js_value) => js_value,
             Error::IndexOpenFailed(js_value) => js_value,
             Error::IndexedDbNotFound(js_value) => js_value,
             Error::IndexedDbNotSupported(js_value) => js_value,
